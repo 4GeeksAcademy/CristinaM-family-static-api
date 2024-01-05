@@ -36,11 +36,22 @@ def handle_hello():
     return jsonify(response_body), 200
 
 @app.route('/member', methods=['POST'])
-def new_member():
+def add_member():
 
-    members = jackson_family.get_all_members()
-    response_body = members
+    new_member = jackson_family.add_member(member)
 
+    body = request.get_json()
+
+    member={
+        "first_name" : body["first_name"],
+        "age" : body["age"],
+        "lucky_numbers" : body["lucky_numbers"]
+    }
+
+    response_body = {
+        "msg" : "agrego miembro",
+        "member" :  new_member
+    }
 
     return jsonify(response_body), 200
 
